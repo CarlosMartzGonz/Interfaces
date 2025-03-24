@@ -17,8 +17,10 @@ public class Company {
         return workerMap.put(worker.getId(),worker);
     }
 
-    public Worker getWorkerByID(String id){
-        return workerMap.get(id);
+    public Optional<Worker> getWorkerByID(String id){
+        if(workerMap.containsKey(id))
+        return Optional.of(workerMap.get(id));
+        else return Optional.empty();
     }
 
     public List<Worker> getWorkerList(){
@@ -26,9 +28,13 @@ public class Company {
         return workerList;
     }
 
-    public TypeWorker updateTypeWorker(Worker worker,TypeWorker newTypeWorker){
-        worker.setTypeWorker(newTypeWorker);
-        return newTypeWorker;
+    public Worker updateTypeWorker(String id,TypeWorker newTypeWorker) {
+        if (workerMap.containsKey(id)){
+            workerMap.get(id).setTypeWorker(newTypeWorker);
+        return workerMap.get(id);
+    }
+        else
+            return null;
     }
 
     public Worker deleteWorker(String id){
@@ -39,7 +45,7 @@ public class Company {
         Optional<Worker> olderWorker =  workerMap.
                 values().
                 stream().
-                max(Comparator.comparing(Worker::getWorkedYears));
+                min(Comparator.comparing(Worker::getStartDay));
         return olderWorker.orElse(null);
     }
 
