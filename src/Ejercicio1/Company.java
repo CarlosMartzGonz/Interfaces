@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 public class Company {
     private String cif;
     private String companyName;
-    private Map<String,Worker> workerMap = new HashMap<String,Worker>();
+    private Map<String,Worker> workerMap = new HashMap<>();
 
     public Company(String cif, String companyName) {
         this.cif = cif;
